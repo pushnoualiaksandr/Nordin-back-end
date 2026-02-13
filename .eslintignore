@@ -1,0 +1,17 @@
+node_modules
+.env.dev
+.env.production
+.env
+.gitignore
+package-lock.json
+seeders
+dist
+data
+/test
+/generate-dbml.js
+/config
+/migrations
+/models
+/documentation
+*.log
+*.hbs

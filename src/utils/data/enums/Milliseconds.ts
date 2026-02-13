@@ -1,0 +1,8 @@
+export enum Milliseconds {
+    TEN_MINUTES = 600000,
+    FIFTEEN_MINUTES = 900000,
+    SEVEN_DAYS = 604800000,
+    ONE_DAY = 86400000,
+    ONE_HOUR = 3600000,
+    TWO_MONTH = 5184000000,
+}

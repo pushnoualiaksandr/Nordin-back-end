@@ -1,0 +1,14 @@
+node_modules
+.env.production
+.env.dev
+.env
+.gitignore
+package-lock.json
+dist
+.prettierrc
+README.md
+docker-compose.yml
+Dockerfile
+/documentation
+*.log
+*.hbs
