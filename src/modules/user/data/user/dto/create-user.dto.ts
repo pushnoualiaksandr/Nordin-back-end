@@ -4,6 +4,7 @@ import {
     IsEmail,
     IsEnum,
     IsNotEmpty,
+    IsNumber,
     IsOptional,
     IsString,
     Matches,
@@ -55,9 +56,9 @@ export class CreateUserDto {
         example: '1',
 
     })
-    @IsOptional()
-    @IsString()
-    misId?: string;
+    @IsNotEmpty()
+    @IsNumber()
+    misId: number;
 
     @ApiPropertyOptional({
         description: 'The URL of the user\'s avatar',

@@ -7,6 +7,10 @@ export class CreateTokenDto {
 
     @IsOptional()
     @IsString()
+    cipher?: string;
+
+    @IsOptional()
+    @IsString()
     refreshToken?: string;
 
     @IsOptional()

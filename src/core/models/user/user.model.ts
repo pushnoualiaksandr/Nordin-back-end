@@ -16,7 +16,7 @@ import { Clinic } from '@/core/models/clinic/clinic.model';
 import { ClinicUser } from '@/core/models/clinic/clinic-user.model';
 import { UserStatus } from '@/utils/data/enums/UserStatus';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Token } from '@/core/models';
+import { GuardianWard, Token } from '@/core/models';
 
 
 @Table({ tableName: 'users' })
@@ -45,14 +45,22 @@ export class User extends Model<User> {
     @Column
     phone: string;
 
+    
     @ApiProperty({
         example: '2',
     })
     @Column({
-        type: DataType.STRING,
-        unique: true
+        type: DataType.NUMBER,
+        unique: true,
+        allowNull: false
     })
-    misId: string;
+    misId: number;
+
+    @ApiProperty({
+        example: 'd5dss5',
+    })
+     @Column({ type: DataType.STRING(128),unique: true })
+     avatarKey: string;
 
     @ApiProperty({
     example: 'https://example.com/avatar.jpg',
@@ -87,7 +95,6 @@ export class User extends Model<User> {
     @Column
     isAdult: boolean;
 
-
     @ApiPropertyOptional({
         example: true,
     })
@@ -95,9 +102,30 @@ export class User extends Model<User> {
     @Column
     isNotificationsEnabled: boolean;
 
+
+    @ApiPropertyOptional({
+        example: true,
+    })
+    @Default( false)
+    @Column
+    isFaceId: boolean;
+
+    @ApiPropertyOptional({
+        example: true,
+    })
+    @Default( false)
+    @Column
+    isCodPass: boolean;
+
     @HasOne(() => Token)
     tokens: Token;
 
     @BelongsToMany(() => Clinic, () => ClinicUser)
     clinics: Array<Clinic & { ClinicUser: ClinicUser }>;
+
+    @BelongsToMany(() => User, () => GuardianWard, 'guardianId', 'wardId')
+    wards: User[];
+
+    @BelongsToMany(() => User, () => GuardianWard, 'wardId', 'guardianId')
+    guardians: User[];
 }

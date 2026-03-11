@@ -1,16 +1,17 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { VerifyCodeResponse } from '@/modules/auth/data/swagger/types';
+import { CheckExistUserResponse } from '@/modules/auth/data/swagger/auth/types';
 import { schemaBadRequestForSwagger } from '@/utils/data/types';
 
-export function SwaggerDecoratorVerifyCode(): MethodDecorator {
+export function SwaggerDecoratorCheckUser(): MethodDecorator {
     return applyDecorators(
-        ApiOperation({ summary: 'Verify code' }),
+        ApiOperation({ summary: 'Find user' }),
         ApiOkResponse({
-            type: VerifyCodeResponse,
+              type: CheckExistUserResponse,
         }),
         ApiBadRequestResponse({
             schema: schemaBadRequestForSwagger,
         }),
     );
 }
+

@@ -18,6 +18,18 @@ module.exports = {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            desc:{
+                type: DataTypes.JSONB,
+                allowNull: true,
+            },
+            socialNetwork:{
+                type: DataTypes.STRING(512),
+                allowNull: true,
+            },
+            clinicOperations:{
+                type: DataTypes.STRING(512),
+                allowNull: true,
+            },
             street: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -30,9 +42,7 @@ module.exports = {
                 type: DataTypes.STRING,
                 allowNull: true
             },
-            authFlows: {
-                type: DataTypes.ARRAY(DataTypes.JSONB),
-               },
+
             createdAt: {
                 type: DataTypes.DATE,
                 allowNull: false,

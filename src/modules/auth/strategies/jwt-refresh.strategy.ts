@@ -21,9 +21,11 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, STRATEGY_NAME
             ignoreExpiration: false,
             passReqToCallback: true,
         });
+
     }
 
     async validate(request: Request, payload: ITokenPayload): Promise<User> {
+
         const refreshToken = request.get('authorization').replace('Bearer', '').trim();
 
         const user = await this.userService.getIfRefreshMatch(refreshToken, payload.userId);

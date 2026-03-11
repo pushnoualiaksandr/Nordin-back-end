@@ -15,16 +15,23 @@ export const AuthExceptions = {
     TIME_HAS_EXPIRED: 'The time for password recovery has expired',
     EMAIL_NOT_CONFIRM: 'You have not confirmed email',
     UNREGISTERED: 'Unregistered',
-    USER_DO_NOT_HAVE_INFO: 'The user has no personal information',
+    SMS_SERVICE_UNAVAILABLE: 'Смс сервис не доступен. Попробуйте позже',
     NOT_FOUND: 'Not found',
-    REGISTRATION_REFUSED: 'Registration is prohibited for users under 18'
+    REGISTRATION_REFUSED: 'Registration is prohibited for users under 18',
+    PASSCODE_ALREADY_EXISTS:'Код пароль уже установлен'
 };
 
 export const UserExceptions = {
     USER_DELETED: 'User deleted',
+    USER_HAS_BEEN_DELETED_AFTER_3_MONTH: 'User has been deleted after 3 month',
     USER_CREATED: 'User created successfully!',
+    COULD_NOT_DELETE_USER: 'Could not delete user',
+    GUARDIAN_WARD_NOT_FOUND: 'Guardian ward relation not found',
+    GUARDIAN_WARD_ALREADY_EXISTS: 'Guardian ward relation already exists',
 }
 
-
+export const ClinicExceptions = {
+    CLINIC_NOT_FOUND: 'Clinic not found',
+}
 
 

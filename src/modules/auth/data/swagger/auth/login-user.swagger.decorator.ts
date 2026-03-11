@@ -6,7 +6,7 @@ import {
     ApiOperation,
     ApiUnauthorizedResponse
 } from '@nestjs/swagger';
-import { AuthResponse } from '@/modules/auth/data/swagger/types';
+import { AuthResponse } from '@/modules/auth/data/swagger/auth/types';
 import { schemaBadRequestForSwagger, schemaNotFoundForSwagger, schemaUnauthorizedForSwagger } from '@/utils/data/types';
 
 export function SwaggerDecoratorDateOfBirth(): MethodDecorator {

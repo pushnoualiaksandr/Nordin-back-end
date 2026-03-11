@@ -25,8 +25,20 @@ export class Tokens extends Model<Tokens> {
     @Column
     code: string;
 
+    @Column(DataType.STRING(512))
+    codePassHash: string;
+
     @Column({ type: DataType.ARRAY(DataType.TEXT) })
     fcmTokens: string[];
+
+    @Column({ type: DataType.DATE })
+    refreshTokenExpiresAt: Date;
+
+    @Column({ type: DataType.STRING(512)})
+    deviceId: string;
+
+    @Column({ type: DataType.STRING(512)})
+    publicKey: string;
 
     @ForeignKey(() => User)
     @Column({ type: DataType.INTEGER, allowNull: false })

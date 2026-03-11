@@ -1,7 +1,9 @@
 export const AuthExceptions = {
     ALREADY_REGISTERED: 'User with this credentials already exists!',
     INVALID_PHONE: 'Invalid phone',
+    TRY_AGAIN: 'Что-то пошло не так, попробуйте зарегистрироваться заново',
     USER_NOT_VERIFY: 'User is not verify',
+    USER_CAN_NOT_CREATED: 'Пациент не фожет быть создан',
     USER_NOT_FOUND: 'User with this credentials not found!',
     USERS_NOT_FOUND: 'Users with this credentials not found!',
     PASSWORD_DOES_NOT_MATCH: `Passwords don't match`,
@@ -18,9 +20,18 @@ export const AuthExceptions = {
     UNREGISTERED: 'Unregistered',
     USER_DO_NOT_HAVE_INFO: 'The user has no personal information',
     NOT_FOUND: 'Not found',
+    SMS_SERVICE_UNAVAILABLE: 'Смс сервис недоступен, попробуйте позже',
     SMS_WAIT: 'Please wait 1 minute before asking again',
     SMS_ERR: 'Sms error',
     SMS_SENT: 'Sms sent',
     VERIFICATION_NOT_FOUND: 'Verification not found! Try registration again',
+    PASSCODE_ALREADY_EXISTS:'Код пароль уже установлен',
+    PASSCODE_INVALID:'Код пароль не верный',
+    PASSCODE_NOT_FOUND:'Код пароль не найден',
+    CHALLENGE_INVALID: 'Invalid or expired challenge',
+    SIGNATURE_INVALID: 'Invalid signature',
+    BIOMETRIC_NOT_FOUND: 'Biometric not found',
+    WARD_CAN_NOT_BE_ADDED: 'Ward can not be added',
+    WARD_CAN_NOT_BE_DELETED: 'Ward can not be deleted',
 
 };

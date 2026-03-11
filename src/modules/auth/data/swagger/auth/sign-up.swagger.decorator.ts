@@ -1,6 +1,6 @@
 import { ApiCreatedResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { applyDecorators, HttpStatus } from '@nestjs/common';
-import { AuthResponse } from '@/modules/auth/data/swagger/types';
+import { AuthResponse } from '@/modules/auth/data/swagger/auth/types';
 import { schemaBadRequestForSwagger } from '@/utils/data/types';
 
 export function SwaggerDecoratorBySignUp(): MethodDecorator {

@@ -17,6 +17,12 @@ export class UserRepository extends BaseRepository<User> {
                 as: 'tokens',
 
             },
+            {
+                model: User,
+                as: 'wards',
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+              
+            }
         ];
     }
 

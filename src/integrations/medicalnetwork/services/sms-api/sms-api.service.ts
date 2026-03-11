@@ -25,12 +25,12 @@ export class SmsApiService extends MedicalNetworkBaseApiService {
         return lastValueFrom(request$);
     }
 
-    checkSmsCode(phone: string, code: string): Promise<SmsValidateType > {
+    checkSmsCode(phone: string, code4: string): Promise<SmsValidateType > {
         const path = this.apiUrl + `/code4/validate`;
         const request$ = this.http.get<SmsValidateType >(path, {
             headers: {
                 phone,
-                code
+                code4
             }
         }).pipe(
             map((res) => res.data),

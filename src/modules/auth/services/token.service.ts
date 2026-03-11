@@ -1,8 +1,7 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { TokenRepository } from '@/modules/auth/repository';
 import { CreateTokenDto } from '@/modules/auth/data/dto/token/create-token.dto';
 import { Token } from '@/core/models';
-import { AuthExceptions } from '@/core/exception';
 import { ConfigService } from '@nestjs/config';
 import { Transaction } from 'sequelize';
 
@@ -24,18 +23,18 @@ export class TokenService {
         return await this.tokenRepository.create({ ...dto, refreshTokenExpiresAt: expiresAt },{transaction});
     }
 
-    async saveRefreshToken(userId: number, refreshToken: string): Promise<void> {
-        const token = await this.findTokenByUserId(userId);
+    async saveRefreshToken(userId: number, refreshToken: string, transaction?: Transaction): Promise<void> {
+        const token = await this.findTokenByUserId(userId, transaction);
         const expiresAt = new Date();
         expiresAt.setTime(expiresAt.getTime() + (this.JWT_REFRESH_EXPIRATION_TIME * 1000));
 
         token.refreshTokenExpiresAt = expiresAt;
         token.refreshToken = refreshToken;
-        await token.save({ fields: ['refreshToken', 'refreshTokenExpiresAt'] });
+        await token.save({ fields: ['refreshToken', 'refreshTokenExpiresAt'],transaction, });
     }
 
- async findTokenByUserId(userId: number): Promise<Token> {
-     const token = await this.tokenRepository.findOneByOptions({ where: { userId } });
+ async findTokenByUserId(userId: number, transaction?: Transaction): Promise<Token> {
+     const token = await this.tokenRepository.findOneByOptions({ where: { userId }, transaction });
      if (!token) {
          throw new ForbiddenException();
      }
@@ -43,7 +42,7 @@ export class TokenService {
  }
 
 
-    async isTokenInvalid(userId: number): Promise<boolean> {
+    async isTokenValid(userId: number): Promise<boolean> {
         try {
             const token = await this.findTokenByUserId(userId);
 
@@ -57,24 +56,15 @@ export class TokenService {
 
             }
 
-            if (!token.refreshTokenExpiresAt && token.refreshToken) {
-                await this.saveRefreshToken(userId, token.refreshToken)
-                return true;
-            }
+            return !!(!token.refreshTokenExpiresAt && token.refreshToken);
 
-            return false;
+
         } catch (error) {
             throw new ForbiddenException();
         }
     }
 
 
- async verifyCode( code: string, userId: number): Promise<void> {
-     const token = await this.findTokenByUserId(userId);
-     if (token.code !== code) {
-         throw new BadRequestException(AuthExceptions.CODE_NOT_CORRECT);
-     }
- }
  async removeRefreshToken(userId: number): Promise<void> {
      const token = await this.findTokenByUserId(userId);
      token.refreshToken =null;

@@ -1,5 +1,6 @@
 'use strict';
 
+
 module.exports = {
     up: async (queryInterface) => {
         const { DataTypes} = require('sequelize');
@@ -33,10 +34,7 @@ module.exports = {
                 autoIncrement: true,
                 allowNull: false
             },
-            fio: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
+
             gender: {
                 type: DataTypes.ENUM('male', 'female'),
                 allowNull: false,
@@ -47,42 +45,49 @@ module.exports = {
                 allowNull: false
             },
             misId: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 unique: true,
-                allowNull: true
+                allowNull: false
             },
             avatarUrl: {
                 type: DataTypes.STRING,
                 allowNull: true
             },
-            dateOfBirth: {
-                type: DataTypes.DATEONLY,
-                allowNull: true
+
+            avatarKey: {
+                type: DataTypes.STRING(128),
+                allowNull: true,
+                unique: true
             },
             status: {
                 type: DataTypes.ENUM('blocked', 'unverified', 'verified'),
                 defaultValue: 'unverified',
                 allowNull: false
             },
-            email: {
-                type: DataTypes.STRING,
-                allowNull: true
-            },
+
             role: {
                 type: DataTypes.ENUM('patient', 'super_admin', 'ward'),
                 allowNull: false,
                 defaultValue: 'patient'
             },
-            isAdult: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: true,
-                allowNull: false
-            },
+
             isNotificationsEnabled: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
                 allowNull: false
             },
+
+            isFaceId: {
+                type: DataTypes.BOOLEAN,
+                defaultValue:false,
+                allowNull: false
+            },
+            isCodPass: {
+                type: DataTypes.BOOLEAN,
+                defaultValue:false,
+                allowNull: false
+            },
+
             createdAt: {
                 type: DataTypes.DATE,
                 allowNull: false,
@@ -92,6 +97,10 @@ module.exports = {
                 type: DataTypes.DATE,
                 allowNull: false,
                 defaultValue: DataTypes.NOW
+            },
+            deletedAt: {
+                type: DataTypes.DATE,
+                allowNull: true
             }
         });
 

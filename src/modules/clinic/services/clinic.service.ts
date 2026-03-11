@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ClinicRepository } from '@/modules/clinic/repository';
 import { CreateClinicDto, UpdateClinicDto } from '@/modules/clinic/data/clinic/dto';
 import { Clinic } from '@/core/models';
 import { Transaction } from 'sequelize';
+import { ClinicExceptions } from '@/exceptions/message.exception';
 
 
 @Injectable()
@@ -15,11 +16,10 @@ export class ClinicService {
   }
 
     async updateClinic(id: number, dto: UpdateClinicDto): Promise<Clinic> {
-      await this.clinicRepository.update(
-          {
-            where: {id},
+      console.log('clinic=>', dto)
+     const clinic = await this.clinicRepository.findById(id);
+      await clinic.update(
 
-         },
           {
             ...dto
          });
@@ -27,7 +27,11 @@ export class ClinicService {
     }
 
     async findAllClinic(transaction?: Transaction): Promise<Clinic[]> {
-      return await this.clinicRepository.findAllByOptions({transaction})
+      const clinic = await this.clinicRepository.findAllByOptions({transaction});
+      if (!clinic) {
+          throw new NotFoundException(ClinicExceptions.CLINIC_NOT_FOUND)
+      }
+      return  clinic
     }
 
 }

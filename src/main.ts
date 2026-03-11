@@ -15,10 +15,12 @@ import { CORS_URLS } from '@/utils/data/const';
 import { Clinic } from '@/core/models';
 
 async function bootstrap() {
+
     const app = await NestFactory.create(AppModule, { bufferLogs: true });
     const config = app.get(ConfigService);
 
     const port = config.getOrThrow('app.port');
+      
     const nodeEnv = config.getOrThrow('app.nodeEnv');
     const debugMode = config.getOrThrow('app.debugMode');
     const dbSync = config.getOrThrow('database.sync');
@@ -60,7 +62,7 @@ async function bootstrap() {
             transform: true,
         }),
     );
-
+ 
     app.useLogger(app.get(PinoLogger));
     app.useGlobalInterceptors(new LoggerErrorInterceptor());
     app.use(helmet());

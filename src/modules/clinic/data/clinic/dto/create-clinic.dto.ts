@@ -1,7 +1,8 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, Matches, ValidateNested } from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsObject, IsOptional, IsString, Matches, ValidateNested } from 'class-validator';
 import { PHONE_NUMBER_REGEX } from '@/utils/data/const';
-import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { ClinicDescriptionDto } from '@/modules/clinic/data/clinic/dto/clinic-descriptin.dto';
 
 export class AuthRulesDto {
     @ApiProperty({
@@ -104,20 +105,42 @@ export class CreateClinicDto {
     shortPhone?: string;
 
     @ApiProperty({
-        description: 'Authorization rules for different user types',
-        type: AuthRulesDto,
+       example: 'Viber',
+        required: false
+    })
+    @IsOptional()
+    @IsString({ message: 'Social network field must be a string if provided' })
+    socialNetwork?: string
+
+    @ApiProperty({
+        example: 'пн-пт 7.30-21.00',
+        required: false
+    })
+    @IsOptional()
+    @IsString({ message: 'clinic operations field must be a string if provided' })
+    clinicOperations?: string
+
+    @ApiProperty({
+        description: 'Detailed clinic description with blocks and structured content',
+        type: ClinicDescriptionDto,
+        required: false,
         example: {
-            1: ['/home', '/appointments'],
-            2: ['/dashboard'],
-            3: ['/news'],
-            4: ['/documents']
+            title: 'About our clinic',
+            description: 'We are a modern medical center...',
+            facts: ['Over 50 specialists', 'Modern equipment'],
+            blocks: [
+                {
+                    type: 'paragraph',
+                    text: 'Some text',
+                    subText: ['detail1', 'detail2']
+                }
+            ]
         }
     })
-    @IsNotEmpty({ message: 'Authorization rules are required' })
-    @ValidateNested({
-        each: true,
-        message: 'Each auth rule must be a valid object'
-    })
-    @Type(() => AuthRulesDto)
-    authRules: AuthRulesDto;
+    @IsOptional()
+    @IsObject({ message: 'Description must be an object' })
+    @ValidateNested()
+    @Type(() => ClinicDescriptionDto)
+    desc?: ClinicDescriptionDto;
+
 }

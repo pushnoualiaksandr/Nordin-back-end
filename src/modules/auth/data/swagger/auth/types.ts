@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ResponseMessageDto } from '@/utils/data/dto/response-message.dto';
-import { ClinicUser } from '@/core/models';
+import { Clinic } from '@/core/models';
 
 
 export class CheckExistUserResponse {
@@ -8,7 +8,7 @@ export class CheckExistUserResponse {
     code: string;
 }
 
-export class VerifyCodeResponse {
+export class OkeResponse {
     @ApiProperty({
         description: 'Check code result',
         example: {
@@ -30,8 +30,18 @@ export class TokensResponse {
 }
 
 export class AuthResponse extends TokensResponse {
-    @ApiProperty({ type: ClinicUser })
-    clinicUser:ClinicUser;
+    @ApiProperty({ type: Clinic })
+    clinic:Clinic;
+
+    @ApiProperty({ type: AuthResponse })
+    user:AuthResponse;
+
+    @ApiProperty({ type: 'boolean' })
+    isTokenValid?: boolean;
+
+    @ApiProperty({ type: 'boolean' })
+    isRegistration?: boolean;
+
 }
 
 export class CheckDateOfBirthResponse {

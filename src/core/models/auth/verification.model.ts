@@ -1,4 +1,4 @@
-import { Column, Default, Index, Model, Table } from 'sequelize-typescript';
+import { Column, Index, Model, Table } from 'sequelize-typescript';
 
 @Table({ tableName: 'verifications' })
 export class Verification extends Model<Verification> {
@@ -7,11 +7,10 @@ export class Verification extends Model<Verification> {
     authField: string;
 
     @Column
-    code: string;
+    cipher: string;
 
-    @Default(false)
     @Column
-    isValidate: boolean;
+    code: string;
 
     @Column('bigint')
     lastRequestTime: number;

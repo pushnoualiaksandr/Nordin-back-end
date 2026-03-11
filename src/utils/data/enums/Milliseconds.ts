@@ -4,5 +4,5 @@ export enum Milliseconds {
     SEVEN_DAYS = 604800000,
     ONE_DAY = 86400000,
     ONE_HOUR = 3600000,
-    TWO_MONTH = 5184000000,
+    THREE_MONTH = 7776000000,
 }

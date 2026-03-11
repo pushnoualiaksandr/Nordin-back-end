@@ -15,13 +15,35 @@ export class Token extends Model<Token> {
     id: number;
 
     @ApiProperty({
-        example: '1234',
-        minLength: 4,
-        maxLength: 4
+        example: '1945CD157D331DB5FB5238C8FFF57E4C',
     })
-    @Column
+    @Column(DataType.STRING(512))
+    cipher: string;
+
+    @ApiProperty({
+        example: '1234',
+     })
+    @Column(DataType.STRING(512))
     code: string;
 
+
+    @ApiProperty({
+        example: '1945CD157D331DB5FB5238C8FFF57E4C',
+     })
+    @Column(DataType.STRING(512))
+    codePassHash: string;
+
+    @ApiProperty({
+        example: '1234',
+    })
+    @Column(DataType.STRING(512))
+    publicKey: string;
+
+    @ApiProperty({
+        example: '1234',
+    })
+    @Column(DataType.TEXT)
+    deviceId: string;
 
 
     @ApiProperty({

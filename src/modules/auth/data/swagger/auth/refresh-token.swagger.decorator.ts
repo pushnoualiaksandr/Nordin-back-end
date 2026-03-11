@@ -1,17 +1,17 @@
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { applyDecorators } from '@nestjs/common';
-import { VerifyCodeResponse } from '@/modules/auth/data/swagger/types';
+import { TokensResponse } from '@/modules/auth/data/swagger/auth/types';
 import { schemaUnauthorizedForSwagger } from '@/utils/data/types';
 
-export function SwaggerDecoratorByLogout(): MethodDecorator {
+export function SwaggerDecoratorByRefreshToken(): MethodDecorator {
     return applyDecorators(
         ApiBearerAuth(),
-        ApiOperation({ summary: 'Logout user' }),
+        ApiOperation({ summary: 'Refresh token' }),
         ApiCreatedResponse({
-            type: VerifyCodeResponse,
+            type: TokensResponse,
         }),
         ApiUnauthorizedResponse({
-            schema: schemaUnauthorizedForSwagger,
+              schema: schemaUnauthorizedForSwagger,
         }),
     );
 }

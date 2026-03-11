@@ -1,5 +1,6 @@
 'use strict';
 
+
 module.exports = {
     up: async (queryInterface) => {
         const { DataTypes } = require('sequelize');
@@ -13,12 +14,45 @@ module.exports = {
             },
             refreshToken: {
                 type: DataTypes.TEXT,
-                allowNull: false
+                allowNull: true
             },
             code: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(512),
+                allowNull: true,
+                defaultValue: null,
 
             },
+            cipher: {
+                type: DataTypes.STRING(512),
+                allowNull: true,
+                defaultValue: null,
+
+            },
+
+            codePassHash:{
+                type: DataTypes.STRING(512),
+                allowNull: true,
+                defaultValue: null,
+            },
+            publicKey: {
+                type: DataTypes.STRING(512),
+                allowNull: true,
+                defaultValue: null,
+
+            },
+            deviceId: {
+                type: DataTypes.TEXT,
+                allowNull: true,
+                defaultValue: null,
+
+            },
+
+            refreshTokenExpiresAt:{
+                type: DataTypes.DATE,
+                allowNull: true,
+                defaultValue: null,
+            },
+
             fcmTokens: {
                 type: DataTypes.ARRAY(DataTypes.TEXT),
 

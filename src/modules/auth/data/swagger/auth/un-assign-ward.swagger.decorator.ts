@@ -1,17 +1,16 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { CheckExistUserResponse } from '@/modules/auth/data/swagger/types';
-import { schemaBadRequestForSwagger } from '@/utils/data/types';
+import { schemaBadRequestForSwagger } from '@/utils/data/types/schemaBadRequestForSwagger';
+import { User } from '@/core/models';
 
-export function SwaggerDecoratorCheckUser(): MethodDecorator {
+export function SwaggerDecoratorUnAssignWard(): MethodDecorator {
     return applyDecorators(
-        ApiOperation({ summary: 'Find user' }),
+        ApiOperation({ summary: 'Un assign ward' }),
         ApiOkResponse({
-              type: CheckExistUserResponse,
+            type: User,
         }),
         ApiBadRequestResponse({
             schema: schemaBadRequestForSwagger,
         }),
     );
 }
-
